@@ -29,18 +29,36 @@ public class MyThread extends Thread {
                         }
                         out.writeBytes("@"+"\n");
                         break;
+                    case "Elimina":
+                        messaggioRicevuto=in.readLine();
+
+                        try {
+                            int num= (Integer.parseInt(messaggioRicevuto))-1;
+                            if(lista.size()<num){
+                                out.writeBytes("errore\n");;
+                            }else{
+                                lista.remove(num);
+                                out.writeBytes("OK\n");;
+
+                            }
+                        } catch (Exception e) {
+                            out.writeBytes("errore\n");;
+                        }
                     case "!":
                         break;
                 
                     default:
+                                     
                         lista.add(messaggioRicevuto);
-
                         out.writeBytes("OK\n");
+                        
                         break;
                 }
 
             } while ( !messaggioRicevuto.equals("!"));
             socket.close();
+            System.out.println("Qualcuno si è scollegato");
+
 
         } catch (Exception e) {
             // TODO: handle exception
